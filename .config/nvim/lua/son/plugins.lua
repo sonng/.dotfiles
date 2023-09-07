@@ -83,6 +83,14 @@ return require('packer').startup(function(use)
       }
   }
 
+  -- Harpoon
+  use {
+      'ThePrimeagen/harpoon',
+      requires = {
+          {'nvim-lua/plenary.nvim'},
+      }
+  }
+
   use { 
       "catppuccin/nvim", 
       name = "catppuccin",
