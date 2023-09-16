@@ -8,57 +8,61 @@ if utils.executable('python3') then
     vim.g.python3_host_prog = fn.exepath('python3')
 end
 
--- Only required if you have packer configured as `opt`
-vim.cmd.packadd('packer.nvim')
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Automatically source and re-compile packer whenever you save this file.
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-    command = 'source <afile> | PackerCompile',
-    group = packer_group,
-    pattern = vim.fn.expand '$MYVIMRC',
-})
+require("lazy").setup({
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+  -- Highly extendable fuzzy finder over lists.
+  { 'nvim-telescope/telescope.nvim', 
+    tag = '0.1.1',
+    dependencies = {
+      'nvim-lua/plenary.nvim'
+    }
+  },
 
-  use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.1',
-      requires = { {'nvim-lua/plenary.nvim'} }
-  }
+  -- More features for the Wildmenu
+  { 'gelguy/wilder.nvim' },
 
-  use {
-      'gelguy/wilder.nvim',
-  }
+  -- A tree like view for symbols using LSP
+  { 'simrat39/symbols-outline.nvim' },
 
-  use 'simrat39/symbols-outline.nvim'
-
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
+  -- A tree view file browser
+  { 'nvim-tree/nvim-tree.lua',
+    dependencies = {
       'nvim-tree/nvim-web-devicons',
     }
-  }
+  },
 
-  use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ":TSUpdate",
-  }
+  -- Better syntax highlighting
+  { 'nvim-treesitter/nvim-treesitter',
+      build = ":TSUpdate",
+  },
 
-  use 'nvim-treesitter/nvim-treesitter-context'
+  -- Show current context on top of the file
+  { 'nvim-treesitter/nvim-treesitter-context' },
 
-  use {
-      'VonHeikemen/lsp-zero.nvim',
-      branch = 'v2.x',
-      requires = {
+  -- Basically Zero ~ Low config LSP
+  { 'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    dependencies = {
           -- LSP Support
-          {'neovim/nvim-lspconfig'},
-          {
-              'williamboman/mason.nvim',
-              run = function()
-                  pcall(vim.cmd, 'MasonUpdate')
-              end,
+          { 'neovim/nvim-lspconfig'},
+          { 'williamboman/mason.nvim',
+            build = function()
+              pcall(vim.cmd, 'MasonUpdate')
+            end,
           },
           {'williamboman/mason-lspconfig.nvim'},
 
@@ -81,95 +85,48 @@ return require('packer').startup(function(use)
           {'L3MON4D3/LuaSnip'},
           {'rafamadriz/friendly-snippets'},
       }
-  }
+  },
 
   -- Harpoon
-  use {
-      'ThePrimeagen/harpoon',
-      requires = {
-          {'nvim-lua/plenary.nvim'},
-      }
-  }
+  { 'ThePrimeagen/harpoon',
+    dependencies = {
+      {'nvim-lua/plenary.nvim'},
+    }
+  },
 
-  use { 
-      "catppuccin/nvim", 
-      name = "catppuccin",
-      config = function()
-          vim.cmd('colorscheme catppuccin')
-      end
-  }
+  -- Themes
+  { "catppuccin/nvim", 
+    name = "catppuccin",
+    config = function()
+      vim.cmd('colorscheme catppuccin')
+    end
+  },
 
-  --[[
-  use {
-      "mcchrish/zenbones.nvim",
-      requires = { "rktjmp/lush.nvim" },
-      config = function()
-          vim.cmd('set background=light')
-          vim.cmd('colorscheme zenbones')
-      end
-  }
-  --]]
-
-  --[[
-  use {
-      "sainnhe/everforest",
-      config = function()
-          vim.cmd('set background=light')
-          vim.cmd('let g:everforest_background = "hard"')
-          vim.cmd('colorscheme everforest')
-      end
-  }
-  --]]
-
-  --[[
-  use {
-      'folke/tokyonight.nvim',
-      name = 'tokyonight',
-      config = function()
-          vim.cmd('colorscheme tokyonight-night')
-      end
-  }
-  --]]
-
-  -- LSP Progress
-  use {
-      'j-hui/fidget.nvim',
-      tag = 'legacy',
-      config = function()
-        require("fidget").setup { }
-      end,
-  }
-  
   -- Markdown Preview
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
+  { "iamcco/markdown-preview.nvim",
+    build  = function() vim.fn["mkdp#util#install"]() end,
+  },
 
   -- HOP!
-  use {
-      'phaazon/hop.nvim',
-      branch = 'v2',
-      config = function()
-        require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-      end
-  }
+  { 'phaazon/hop.nvim',
+    branch = 'v2',
+    config = function()
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
+  },
 
   -- Status Line
-  use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-  }
+  { 'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons', optional = true },
+  },
 
   -- Tmux 
-  if utils.executable("tmux") then
-      use { "tmux-plugins/vim-tmux", ft = { "tmux" } }
-  end
-
+  { "tmux-plugins/vim-tmux", 
+    ft = { "tmux" } ,
+    enabled = function() return utils.executable("tmux") end
+  },
 
   -- Copilot
-  use("github/copilot.vim")
+  { 'github/copilot.vim' }
 
-end)
-
-
+})
