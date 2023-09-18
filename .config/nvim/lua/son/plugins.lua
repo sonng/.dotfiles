@@ -47,7 +47,7 @@ require("lazy").setup({
 
   -- Better syntax highlighting
   { 'nvim-treesitter/nvim-treesitter',
-      build = ":TSUpdate",
+    build = ":TSUpdate",
   },
 
   -- Show current context on top of the file
@@ -60,9 +60,7 @@ require("lazy").setup({
           -- LSP Support
           { 'neovim/nvim-lspconfig'},
           { 'williamboman/mason.nvim',
-            build = function()
-              pcall(vim.cmd, 'MasonUpdate')
-            end,
+            build = ":MasonUpdate",
           },
           {'williamboman/mason-lspconfig.nvim'},
 
@@ -94,14 +92,6 @@ require("lazy").setup({
     }
   },
 
-  -- Themes
-  { "catppuccin/nvim", 
-    name = "catppuccin",
-    config = function()
-      vim.cmd('colorscheme catppuccin')
-    end
-  },
-
   -- Markdown Preview
   { "iamcco/markdown-preview.nvim",
     build  = function() vim.fn["mkdp#util#install"]() end,
@@ -115,18 +105,57 @@ require("lazy").setup({
     end
   },
 
+  -- Tmux 
+  { "tmux-plugins/vim-tmux",
+    ft = { "tmux" } ,
+    enabled = function() return utils.executable("tmux") end
+  },
+
+  -- Copilot
+  { 'github/copilot.vim' },
+
+  -- Lua/Nvim Development
+  { "folke/neodev.nvim", opts = {} },
+  { 'milisims/nvim-luaref' },
+
+  -- Themes
+  { "catppuccin/nvim",
+    name = "catppuccin",
+    config = function()
+      vim.cmd('colorscheme catppuccin')
+    end,
+    enabled = false,
+  },
+
+  { "mcchrish/zenbones.nvim",
+    config = function()
+        vim.cmd('colorscheme rosebones')
+    end,
+    dependencies = {
+      'rktjmp/lush.nvim',
+    },
+  },
+
   -- Status Line
   { 'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', optional = true },
   },
 
-  -- Tmux 
-  { "tmux-plugins/vim-tmux", 
-    ft = { "tmux" } ,
-    enabled = function() return utils.executable("tmux") end
+  -- Indent Line
+  { 'lukas-reineke/indent-blankline.nvim',
+    config = function()
+        vim.opt.list = true
+        vim.opt.listchars:append({eol = '↴'})
+
+        require('indent_blankline').setup {
+            space_char_blankline = " ",
+            show_current_context = true,
+        }
+    end
   },
 
   -- Copilot
   { 'github/copilot.vim' }
 
 })
+
