@@ -152,10 +152,7 @@ require("lazy").setup({
             show_current_context = true,
         }
     end
-  },
-
-  -- Copilot
-  { 'github/copilot.vim' }
+  }
 
 })
 
