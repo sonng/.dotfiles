@@ -10,4 +10,5 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-zellij run -c --cwd $selected -i -- nvim $selected
+selected_name=$(basename "$selected")
+zellij run --cwd "$selected" -i -- nvim $selected

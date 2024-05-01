@@ -101,7 +101,6 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-eval "$(zellij setup --generate-auto-start zsh)"
 eval "$(/home/son/.local/bin/mise activate zsh)"
 eval "$(starship init zsh)"
 
