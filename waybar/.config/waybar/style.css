@@ -1,0 +1,98 @@
+@import 'global.css';
+
+* {
+    border: none;
+    border-radius: 10px;
+    font-family: "MonaspiceKr Nerd Font";
+    font-size: 12px;
+    min-height: 10px;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/**
+ * Workspaces
+ */
+#workspaces {
+    margin-top: 4px;
+    margin-left: 4px;
+    font-size: 4px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+    background: @background-color;
+    transition: none;
+}
+
+#workspaces button {
+    color: #6a994e;
+    border-radius: 2px;
+    border-bottom: 2px solid @foreground-color;
+    border-top: 2px solid @foreground-color;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    border-color: @foreground-color;
+    background: @hover-color;
+    color: #403d39;
+}
+
+#workspaces button.empty {
+    color: #e5e5e5;
+    background: transparent;
+    font-weight: lighter;
+    border-bottom: 0px;
+    border-top: 0px;
+}
+
+#workspaces button.active {
+    color: @foreground-color;
+    border-top: 4px solid @foreground-color;
+    border-bottom: 4px solid @foreground-color;
+    font-weight: bold
+}
+
+/**
+ * Audio
+ */
+#wireplumber {
+    background: @background-color;
+    color: @foreground-color;
+    padding-right: 14px;
+    padding-left: 6px;
+
+}
+
+/**
+ * Date + Clock
+ */
+#clock {
+    color: @foreground-color;
+    background: @background-color;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#memory {
+    color: @foreground-color;
+    background: @background-color;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#cpu {
+    color: @foreground-color;
+    background: @background-color;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#temperature {
+    color: @foreground-color;
+    background: @background-color;
+    padding-left: 6px;
+    padding-right: 6px;
+}
