@@ -2,22 +2,19 @@
 
 * {
     border: none;
-    border-radius: 10px;
     font-family: "MonaspiceKr Nerd Font";
     font-size: 12px;
     min-height: 10px;
 }
 
 window#waybar {
-    background: transparent;
+    background: @background-color;
 }
 
 /**
  * Workspaces
  */
 #workspaces {
-    margin-top: 4px;
-    margin-left: 4px;
     font-size: 4px;
     margin-bottom: 0px;
     border-radius: 10px;
@@ -53,6 +50,10 @@ window#waybar {
     border-top: 4px solid @foreground-color;
     border-bottom: 4px solid @foreground-color;
     font-weight: bold
+}
+
+#window {
+    color: @foreground-color;
 }
 
 /**
