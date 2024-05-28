@@ -96,3 +96,16 @@ window#waybar {
     padding-left: 6px;
     padding-right: 6px;
 }
+
+#tray {
+    color: @foreground-color;
+    background: @background-color;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#tray menu {
+    color: @foreground-color;
+    background: @background-color;
+}
+

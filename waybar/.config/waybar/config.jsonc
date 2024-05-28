@@ -12,6 +12,7 @@
     ],
 
     "modules-right": [
+        "tray",
         "cpu",
         "temperature",
         "memory",
@@ -55,6 +56,11 @@
           "<span color='#ff9977'>▇</span>", // orange
           "<span color='#dd532e'>█</span>"  // red
      ]
-    }
+    },
 
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10,
+        "show-passive-items": true
+    }
 }
