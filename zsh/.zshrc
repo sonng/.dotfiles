@@ -104,3 +104,5 @@ export EDITOR='nvim'
 eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
 
+# Prevent from going into a folder instead of executing cmd
+unsetopt autocd
