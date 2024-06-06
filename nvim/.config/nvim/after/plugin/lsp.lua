@@ -80,7 +80,7 @@ rust_tools.setup({
             local opts = {buffer = bufnr}
 
             -- Rust Code Action
-            vim.keymap.set("n", "<leader>rca", rust_tools.hover_actions.hover_action, opts)
+            vim.keymap.set("n", "<leader>rca", rust_tools.hover_actions.hover_actions, opts)
         end
     }
 })
