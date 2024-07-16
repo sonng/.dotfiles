@@ -29,7 +29,7 @@ require("lazy").setup({
     tag = '0.1.5',
     dependencies = {
       'nvim-lua/plenary.nvim'
-    }
+    },
   },
 
   -- More features for the Wildmenu
@@ -65,7 +65,10 @@ require("lazy").setup({
           {'williamboman/mason-lspconfig.nvim'},
 
           -- Rust
-          {'simrat39/rust-tools.nvim'},
+          { 'mrcjkb/rustaceanvim',
+            version = '^4',
+            lazy = false,
+          },
 
           -- Debugging
           {'nvim-lua/plenary.nvim'},

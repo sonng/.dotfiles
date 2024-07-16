@@ -2,7 +2,7 @@
 decorations = "None"
 
 [font]
-size = 14.0
+size = 10.0
 
 [font.normal]
 family = "MonaspiceNe Nerd Font Mono"

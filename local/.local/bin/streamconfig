@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+file=~/.config/hypr/resolution.conf
+
+if [ ! -f "$file" ]; then
+    echo "Resolution config not found: $file"
+    exit 1
+fi
+
+WIDTH="${SUNSHINE_CLIENT_WIDTH:-3840}"
+HEIGHT="${SUNSHINE_CLIENT_HEIGHT:-2160}"
+FPS="${SUNSHINE_CLIENT_FPS:-120}"
+
+echo "monitor=,${WIDTH}x${HEIGHT}@${FPS},auto,2" > $file

@@ -1,0 +1,12 @@
+@theme "android_notification"
+
+entry {
+    placeholder: "";
+}
+
+element {
+    orientation: horizontal;
+    children: [ element-icon, element-text ];
+    spacing: 6px;
+}
+
